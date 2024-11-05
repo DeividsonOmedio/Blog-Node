@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between mb-3">
+    <h3>Postagens</h3>
+    <a href="/admin/postagens/add"><button class="btn btn-success">Nova Postagem</button></a>
+</div>
+
+{{#if postagens}}
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Slug</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Conteudo</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each postagens}}
+        <tr>
+            <td>{{titulo}}</td>
+            <td>{{slug}}</td>
+            <td>{{descricao}}</td>
+            <td>{{conteudo}}</td>
+            <td>{{categoria}}</td>
+            <td>{{data}}</td>
+            <td>
+                <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-primary">Editar</button></a>
+                <form action="/admin/postagens/deletar" method="POST" style="display:inline;">
+                <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>            
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<div class="alert alert-warning" role="alert">
+    Nenhuma postagem encontrada na base de dados.
+</div>
+{{/if}}

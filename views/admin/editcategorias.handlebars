@@ -1,0 +1,29 @@
+{{#if erros}}
+    {{#each erros}}
+        <div class="alert alert-danger" role="alert">
+            {{texto}}
+        </div>
+    {{/each}}
+{{/if}}
+
+<h3>Editar Categoria</h3>
+{{#if categoria}}
+    <div class="card">
+        <div class="card-body">
+            <form action="/admin/categorias/edit" method="post">
+                <input type="hidden" class="form-control" id="Inputname" name="id" aria-describedby="nameHelp" value="{{categoria._id}}">
+                <div class="mb-3">
+                    <label for="Inputname" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="Inputname" name="nome" aria-describedby="nameHelp" value="{{categoria.nome}}">
+                    <div id="nameHelp" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputSlug" class="form-label">Slug</label>
+                    <input type="text" class="form-control" id="exampleInputSlug" name="slug" value="{{categoria.slug}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </form>
+        </div>
+    </div>
+{{/if}}
+

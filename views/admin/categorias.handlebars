@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-between mb-3">
+    <h3>Categorias</h3>
+    <a href="/admin/categorias/add"><button class="btn btn-success">Nova Categoria</button></a>
+</div>
+{{#if categorias}}
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Slug</th>
+            <th scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each categorias}}
+        <tr>
+            <td>{{nome}}</td>
+            <td>{{slug}}</td>
+            <td>
+                <a href="/admin/categorias/edit/{{_id}}"><button class="btn btn-primary">Editar</button></a>
+                <form action="/admin/categorias/deletar" method="POST" style="display:inline;">
+                <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>            
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<div class="alert alert-warning" role="alert">
+    Nenhuma categoria cadastrada.
+</div>
+{{/if}}
+
+

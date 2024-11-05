@@ -1,0 +1,31 @@
+<h3>Nova Postagem</h3>
+
+<form action="/admin/postagens/nova" method="post">
+    <div class="mb-3">
+        <label for="InputTitulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="InputTitulo" name="titulo" aria-describedby="tituloHelp">
+        <div id="tituloHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="InputSlug" class="form-label">Slug</label>
+        <input type="text" class="form-control" id="InputSlug" name="slug">
+    </div>
+    <div class="mb-3">
+        <label for="InputDescricao" class="form-label">Descrição</label>
+        <textarea class="form-control" id="InputDescricao" name="descricao"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="InputConteudo" class="form-label">Conteúdo</label>
+        <textarea class="form-control" id="InputConteudo" name="conteudo"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="InputCategoria" class="form-label">Categoria</label>
+        <select class="form-select" id="InputCategoria" name="categoria">
+            <option value="">Selecione uma categoria</option>
+            {{#each categorias}}
+            <option value="{{_id}}">{{nome}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Criar Postagem</button>
+</form>

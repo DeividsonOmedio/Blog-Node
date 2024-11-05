@@ -1,0 +1,26 @@
+{{#if erros}}
+    {{#each erros}}
+        <div class="alert alert-danger" role="alert">
+            {{texto}}
+        </div>
+    {{/each}}
+{{/if}}
+
+<h3>Nova Categoria</h3>
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/categorias/nova" method="post">
+            <div class="mb-3">
+                <label for="Inputname" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="Inputname" name="nome" aria-describedby="nameHelp">
+                <div id="nameHelp" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputSlug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="exampleInputSlug" name="slug">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Criar Categoria</button>
+        </form>
+    </div>
+</div>
