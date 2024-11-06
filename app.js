@@ -30,8 +30,17 @@ const home = require('./routes/home');
     app.use(bodyParesr.urlencoded({extended: true}));
     app.use(bodyParesr.json());
 
-    // Handlebars
-    app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
+// Configurando o Handlebars como engine de visualização e registrando o helper `eq`
+const hbs = handlebars.create({
+    defaultLayout: 'main',
+    helpers: {
+        eq: function (a, b) {
+            return a.toString() === b.toString();
+        }
+    }
+});
+
+app.engine('handlebars', hbs.engine);
     app.set('view engine', 'handlebars');
 
     // Mongoose

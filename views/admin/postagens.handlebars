@@ -4,37 +4,32 @@
 </div>
 
 {{#if postagens}}
-<table class="table" border="1">
-    <thead>
-        <tr>
-            <th scope="col">Titulo</th>
-            <th scope="col">Slug</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Conteudo</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Data</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each postagens}}
-        <tr>
-            <td>{{titulo}}</td>
-            <td>{{slug}}</td>
-            <td>{{descricao}}</td>
-            <td>{{conteudo}}</td>
-            <td>{{categoria}}</td>
-            <td>{{data}}</td>
-            <td>
-                <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-primary">Editar</button></a>
-                <form action="/admin/postagens/deletar" method="POST" style="display:inline;">
-                <input type="hidden" name="id" value="{{_id}}">
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                </form>            
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+<div class="accordion" id="accordionPostagens">
+    {{#each postagens}}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{_id}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{_id}}" aria-expanded="false" aria-controls="collapse{{_id}}">
+                {{titulo}} - {{data}}
+            </button>
+        </h2>
+        <div id="collapse{{_id}}" class="accordion-collapse collapse" aria-labelledby="heading{{_id}}" data-bs-parent="#accordionPostagens">
+            <div class="accordion-body">
+                <p><strong>Slug:</strong> {{slug}}</p>
+                <p><strong>Descrição:</strong> {{descricao}}</p>
+                <p><strong>Conteúdo:</strong> {{conteudo}}</p>
+                <p><strong>Categoria:</strong> {{categoria.nome}}</p>
+                <div class="d-flex justify-content-end mt-3">
+                    <a href="/admin/postagens/edit/{{_id}}" class="btn btn-primary me-2">Editar</a>
+                    <form action="/admin/postagens/deletar" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{_id}}">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
 {{else}}
 <div class="alert alert-warning" role="alert">
     Nenhuma postagem encontrada na base de dados.

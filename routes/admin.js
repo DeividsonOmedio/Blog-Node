@@ -107,17 +107,20 @@ router.post('/categorias/deletar', (req, res) => {
 // Postagens
 
 router.get('/postagens', (req, res) => {
-    Postagem.find().lean().then((postagens) => {
+    Postagem.find().lean().populate("categoria").sort({ data: "desc" }).then((postagens) => {
         res.render('admin/postagens', {postagens: postagens});
     }).catch((err) => {
+        console.log(err)
         req.flash('error_msg', 'Erro ao carregar postagens')
         res.redirect('/admin')
     })
 });
+// Categoria.find().lean().populate("categorias").sort({ data: "desc" }).then((postagens) => {
+//     res.render('admin/addpostagem', { postagens: postagens });
 
 router.get('/postagens/add', (req, res) => {
     Categoria.find().lean().then((categorias) => {
-        res.render('admin/addpostagem', {categorias: categorias});
+        res.render('admin/addpostagem', { categorias: categorias });
     }).catch((err) => {
         req.flash('error_msg', 'Erro ao carregar formulário');
         res.redirect('/admin');
@@ -155,15 +158,48 @@ router.post('/postagens/nova', (req, res) => {
 });
 
 router.get('/postagens/edit/:id', (req, res) => {
-    console.log(req.params._id)
         Postagem.findOne({_id: req.params.id}).lean().then((postagem) => {
-            Categoria.findOne({_id})
-            console.log(postagem.categoria.nome)
-            res.render('admin/editpostagem', {postagem: postagem});
+            Categoria.find().lean().then((categorias) => {
+                res.render('admin/editpostagem', { postagem: postagem, categorias: categorias });
+            }).catch((err) => {
+                req.flash('error_msg', 'Erro ao buscar categorias');
+            })
         }).catch((err) => {
-            req.flash('error_msg', 'Postagem Inexistente')
+            req.flash('error_msg', 'Postagem Inexistente');
         });
     });
 
+router.post('/postagens/edit', (req, res) => {
+    console.log(req.body);
+    Postagem.findOne({ _id: req.body.id }).then((postagem) => {
+        postagem.titulo = req.body.titulo
+        postagem.slug = req.body.slug
+        postagem.descricao = req.body.descricao
+        postagem.conteudo = req.body.conteudo
+        postagem.categoria = req.body.categoria
+
+        postagem.save().then(() => {
+            req.flash('success_msg', 'Postagem editada com sucesso');
+            res.redirect('/admin/postagens');
+        }).catch((err) => {
+            req.flash('error_msg', 'Erro ao editar postagem');
+            res.redirect('/admin/postagens');
+
+        })
+    }).catch((err) => {
+        req.flash('error_msg', 'Erro ao buscar postagem');
+    })
+})
+
+router.post('/postagens/deletar', (req, res) => {
+    Postagem.deleteOne({ _id: req.body.id }).then(() => {
+        req.flash('success_msg', 'Postagem deletada com sucesso');
+        res.redirect('/admin/postagens');
+    }).catch((err) => {
+        req.flash('error_msg', 'Erro ao deletar postagem');
+        res.redirect('/admin/postagens');
+
+    })
+})
 
 module.exports = router;

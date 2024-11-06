@@ -10,6 +10,7 @@
 
 {{#if postagem}}
 <form action="/admin/postagens/edit" method="post">
+    <input type="hidden" name="id" value="{{postagem._id}}">
     <div class="mb-3">
         <label for="InputTitulo" class="form-label">Título</label>
         <input type="text" class="form-control" id="InputTitulo" name="titulo" aria-describedby="tituloHelp" value="{{postagem.titulo}}">
@@ -21,18 +22,17 @@
     </div>
     <div class="mb-3">
         <label for="InputDescricao" class="form-label">Descrição</label>
-        <textarea class="form-control" id="InputDescricao" name="descricao"  value="{{postagem.descricao}}"></textarea>
+        <textarea class="form-control" id="InputDescricao" name="descricao" >{{postagem.descricao}}</textarea>
     </div>
     <div class="mb-3">
         <label for="InputConteudo" class="form-label">Conteúdo</label>
-        <textarea class="form-control" id="InputConteudo" name="conteudo"  value="{{postagem.conteudo}}"></textarea>
+        <textarea class="form-control" id="InputConteudo" name="conteudo" >{{postagem.conteudo}}</textarea>
     </div>
     <div class="mb-3">
         <label for="InputCategoria" class="form-label">Categoria</label>
         <select class="form-select" id="InputCategoria" name="categoria" >
-            <option value="{{postagem.categoria}}"></option>
             {{#each categorias}}
-            <option value="{{_id}}">{{nome}}</option>
+                <option value="{{_id}}" {{#if (eq _id ../postagem.categoria)}}selected{{/if}}>{{nome}}</option>
             {{/each}}
         </select>
     </div>
@@ -40,5 +40,3 @@
 </form>
 
 {{/if}}
-
-    <h3>Erro ao encontra postagem</h3>
