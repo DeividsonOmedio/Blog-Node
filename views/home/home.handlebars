@@ -1,0 +1,32 @@
+<div class="my-4 p-5 text-dark rounded" style="background-color: rgba(191, 205, 212, 0.63);">
+<h1>Jumbotron Example</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<a href="/usuarios/login"><button class="btn btn-success">Login</button></a>
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>Posts recentes</h3>
+    <a href="/admin/postagens/add"><button class="btn btn-success">Nova Postagem</button></a>
+</div>
+
+{{#if postagens}}
+<div class="accordion" id="accordionPostagens">
+    {{#each postagens}}
+    <div class="accordion-item">
+        <div class="accordion-body">
+            <h4>{{titulo}}</h4>
+            <p> {{descricao}}</p>
+            <a href="/postagem/{{slug}}"><button class="btn btn-success">Leia Mais</button></a>
+            <hr>
+            <small>{{categoria.nome}}</small>
+            <br>
+            <small>{{data}}</small>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<div class="alert alert-warning" role="alert">
+    Nenhuma postagem encontrada na base de dados.
+</div>
+{{/if}}

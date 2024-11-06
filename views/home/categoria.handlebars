@@ -1,0 +1,23 @@
+{{#if categoria}}
+<h3 class="mb-4">{{categoria.nome}}</h3>
+
+    {{#if postagens}}
+    <div class="accordion" id="accordionPostagens">
+        {{#each postagens}}
+        <div class="accordion-item">
+            <div class="accordion-body">
+                <h4>{{titulo}}</h4>
+                <p> {{descricao}}</p>
+                <a href="/postagem/{{slug}}"><button class="btn btn-success">Leia Mais</button></a>
+                <hr>
+                <small>{{data}}</small>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="alert alert-warning" role="alert">
+        Nenhuma postagem encontrada nessa categoria.
+    </div>
+    {{/if}}
+{{/if}}

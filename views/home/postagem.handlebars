@@ -1,0 +1,22 @@
+{{#if postagem}}
+
+<div class="accordion mt-5" id="accordionPostagens">
+    <div class="accordion-item">
+        <div class="accordion-body">
+            <h4 >{{postagem.titulo}}</h4>
+            <small> {{postagem.descricao}}</small>
+            <p class="mt-4 fs-5"> {{postagem.conteudo}}</p>
+            <hr>
+            <small>{{postagem.categoria.nome}}</small>
+            <br>
+            <small>{{postagem.data}}</small>
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="alert alert-warning" role="alert">
+    Houve um erro ao buscar postagem
+</div>
+{{/if}}
+    
+    <a href="/"><button class="btn btn-secondary mt-4">Voltar</button></a>
